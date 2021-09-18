@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fastapi_template"
+version = "0.1.0"
+description = "This is a template repository using FastAPI resources."
+authors = ["Lucca Marques <devlucca@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.68.1"
+python-dotenv = "^0.19.0"
+uvicorn = "^0.15.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+start = "fastapi_template.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
