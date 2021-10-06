@@ -44,16 +44,14 @@ def include_global_middlewares(
             allowed_hosts=cfg.app.trusted_hosts
         )
 
-def get_app(
-    
-):
+def get_app():
     app = FastAPI(
         title=cfg.app.name or "FastAPI Template",
         openapi_url=None,
         swagger_url=None,
         redoc_url=None,
     )
-    root_router = APIRouter(prefix="/api")
+    root_router = APIRouter()
     
     from fastapi_template.v1.server.routers import router as v1_router
     docs.create_versioned_docs(v1_router, cfg.app.docs_enabled, **{"title": "API Version 1", "description": "API Version 1", "version": "v1", "root_prefix": root_router.prefix})
@@ -63,6 +61,7 @@ def get_app(
     app.add_event_handler("startup", startup_handler(app))
     app.add_event_handler("shutdown", shutdown_handler(app))
     include_global_middlewares(app)
+    app.openapi = docs.create_custom_openapi(app)
     return app
 
 app = get_app()
